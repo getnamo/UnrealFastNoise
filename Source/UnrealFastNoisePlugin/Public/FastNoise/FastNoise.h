@@ -29,8 +29,8 @@
 // 
 
 #pragma once
-#include "CoreMinimal.h"
-#include "Object.h"
+#include "Core/Public/CoreMinimal.h"
+#include "CoreUObject/Public/UObject/Object.h"
 #include "UFNNoiseGenerator.h"
 #include "FastNoise.generated.h"
 
