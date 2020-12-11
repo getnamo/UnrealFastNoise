@@ -1666,16 +1666,16 @@ float UFastNoise::SingleCellular2Edge(float x, float y)
 
 void UFastNoise::PositionWarp(float& x, float& y, float& z)
 {
-	SinglePositionWarp(0, m_positionWarpAmp, m_frequency, x, y, z);
+	SinglePositionWarp(0, m_positionWarpAmp, m_positionWarpFrequency, x, y, z);
 }
 
 void UFastNoise::PositionWarpFractal(float& x, float& y, float& z)
 {
 	float amp = m_positionWarpAmp * m_fractalBounding;
-	float freq = m_frequency;
+	float freq = m_positionWarpFrequency;
 	unsigned int i = 0;
 
-	SinglePositionWarp(m_perm[0], amp, m_frequency, x, y, z);
+	SinglePositionWarp(m_perm[0], amp, m_positionWarpFrequency, x, y, z);
 
 	while (++i < m_octaves)
 	{
@@ -1758,16 +1758,16 @@ void UFastNoise::SinglePositionWarp(unsigned char offset, float warpAmp, float f
 
 void UFastNoise::PositionWarp(float& x, float& y)
 {
-	SinglePositionWarp(0, m_positionWarpAmp, m_frequency, x, y);
+	SinglePositionWarp(0, m_positionWarpAmp, m_positionWarpFrequency, x, y);
 }
 
 void UFastNoise::PositionWarpFractal(float& x, float& y)
 {
 	float amp = m_positionWarpAmp * m_fractalBounding;
-	float freq = m_frequency;
+	float freq = m_positionWarpFrequency;
 	unsigned int i = 0;
 
-	SinglePositionWarp(m_perm[0], amp, m_frequency, x, y);
+	SinglePositionWarp(m_perm[0], amp, m_positionWarpFrequency, x, y);
 
 	while (++i < m_octaves)
 	{

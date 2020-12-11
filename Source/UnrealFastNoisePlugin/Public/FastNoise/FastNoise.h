@@ -144,6 +144,8 @@ struct FFNNoiseParams
 	EPositionWarpType PositionWarpType;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = FNoiseParams)
 	float PositionWarpAmp;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = FNoiseParams)
+	float PositionWarpFrequency;
 
 	FFNNoiseParams()
 		: Seed(0)
@@ -156,11 +158,12 @@ struct FFNNoiseParams
 		, FractalOctaves(2)
 		, PositionWarpType(EPositionWarpType::Fractal)
 		, PositionWarpAmp(30.0f)
+		, PositionWarpFrequency(0.01f)
 	{}
 
 	FFNNoiseParams(int32 inSeed, EInterp inInterp = EInterp::InterpQuintic, ENoiseType inNoiseType = ENoiseType::Simplex, float inNoiseFrequency = 20.f,
 					EFractalType inFractalType = EFractalType::FBM, float inFractalLacunarity = 2.f, float inFractalGain = 0.5f, int32 inFractalOctaves = 2,
-					EPositionWarpType inPositionWarpType = EPositionWarpType::Fractal, float inPositionWarpAmp = 30.f)
+					EPositionWarpType inPositionWarpType = EPositionWarpType::Fractal, float inPositionWarpAmp = 30.f, float inPositionWarpFrequency = 0.01f)
 		: Seed(inSeed)
 		, NoiseInterp(inInterp)
 		, NoiseType(inNoiseType)
@@ -171,6 +174,7 @@ struct FFNNoiseParams
 		, FractalOctaves(inFractalOctaves)
 		, PositionWarpType(inPositionWarpType)
 		, PositionWarpAmp(inPositionWarpAmp)
+		, PositionWarpFrequency(inPositionWarpFrequency)
 	{}
 };
 
@@ -247,6 +251,7 @@ public:
 	// Default: 1.0
 	void SetPositionWarpAmp(float positionWarpAmp) { m_positionWarpAmp = positionWarpAmp / 0.45f; }
 	void SetPositionWarpType(EPositionWarpType positionWarpType) { m_positionWarpType = positionWarpType; }
+	void SetPositionWarpFrequency(float positionWarpFrequency) { m_positionWarpFrequency = positionWarpFrequency; }
 
 	void SetFromParams(const FFNNoiseParams &Params)
 	{
@@ -260,6 +265,7 @@ public:
 		SetFractalType(Params.NoiseFractalType);
 		SetPositionWarpAmp(Params.PositionWarpAmp);
 		SetPositionWarpType(Params.PositionWarpType);
+		SetPositionWarpFrequency(Params.PositionWarpFrequency);
 	}
 
 	//2D												
@@ -528,6 +534,7 @@ protected:
 	UFastNoise* m_cellularNoiseLookup = nullptr;
 
 	float m_positionWarpAmp = 1.0f / 0.45f;
+	float m_positionWarpFrequency = 0.01f;
 
 	//2D
 	float SingleValueFractalFBM(float x, float y);
