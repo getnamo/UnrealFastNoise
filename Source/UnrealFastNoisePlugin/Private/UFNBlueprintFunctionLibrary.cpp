@@ -12,6 +12,11 @@
 #include "UFNShoreFilterModule.h"
 #include "Engine/Classes/Components/SplineComponent.h"
 
+UUFNBlueprintFunctionLibrary::UUFNBlueprintFunctionLibrary(const class FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
+{
+}
+
 UUFNNoiseGenerator* UUFNBlueprintFunctionLibrary::CreateNoiseGenerator(UObject* outer, ENoiseType noiseType, ECellularDistanceFunction cellularDistanceFunction, ECellularReturnType cellularReturnType, EFractalType fractalType, EInterp interpolation, int32 seed, int32 octaves, float frequency, float lacunarity, float fractalGain)
 {
 	UFastNoise* NoiseGen = NewObject<UFastNoise>(outer);
