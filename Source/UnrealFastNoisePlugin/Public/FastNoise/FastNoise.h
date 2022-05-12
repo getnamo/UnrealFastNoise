@@ -119,6 +119,65 @@ enum class ESelectInterpType : uint8
 	Linear
 };
 
+USTRUCT(BlueprintType)
+struct FFNNoiseParams
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = FNoiseParams)
+	int32 Seed;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = FNoiseParams)
+	EInterp NoiseInterp;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = FNoiseParams)
+	ENoiseType NoiseType;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = FNoiseParams)
+	float NoiseFrequency;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = FNoiseParams)
+	EFractalType NoiseFractalType;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = FNoiseParams)
+	float FractalLacunarity;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = FNoiseParams)
+	float FractalGain;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = FNoiseParams)
+	int32 FractalOctaves;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = FNoiseParams)
+	EPositionWarpType PositionWarpType;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = FNoiseParams)
+	float PositionWarpAmp;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = FNoiseParams)
+	float PositionWarpFrequency;
+
+	FFNNoiseParams()
+		: Seed(0)
+		, NoiseInterp(EInterp::InterpQuintic)
+		, NoiseType(ENoiseType::Simplex)
+		, NoiseFrequency(20.0f)
+		, NoiseFractalType(EFractalType::FBM)
+		, FractalLacunarity(2.0f)
+		, FractalGain(0.5f)
+		, FractalOctaves(2)
+		, PositionWarpType(EPositionWarpType::Fractal)
+		, PositionWarpAmp(30.0f)
+		, PositionWarpFrequency(0.01f)
+	{}
+
+	FFNNoiseParams(int32 inSeed, EInterp inInterp = EInterp::InterpQuintic, ENoiseType inNoiseType = ENoiseType::Simplex, float inNoiseFrequency = 20.f,
+					EFractalType inFractalType = EFractalType::FBM, float inFractalLacunarity = 2.f, float inFractalGain = 0.5f, int32 inFractalOctaves = 2,
+					EPositionWarpType inPositionWarpType = EPositionWarpType::Fractal, float inPositionWarpAmp = 30.f, float inPositionWarpFrequency = 0.01f)
+		: Seed(inSeed)
+		, NoiseInterp(inInterp)
+		, NoiseType(inNoiseType)
+		, NoiseFrequency(inNoiseFrequency)
+		, NoiseFractalType(inFractalType)
+		, FractalLacunarity(inFractalLacunarity)
+		, FractalGain(inFractalGain)
+		, FractalOctaves(inFractalOctaves)
+		, PositionWarpType(inPositionWarpType)
+		, PositionWarpAmp(inPositionWarpAmp)
+		, PositionWarpFrequency(inPositionWarpFrequency)
+	{}
+};
+
 UCLASS()
 class UNREALFASTNOISEPLUGIN_API UFastNoise : public UUFNNoiseGenerator
 {
@@ -192,8 +251,24 @@ public:
 	// Default: 1.0
 	void SetPositionWarpAmp(float positionWarpAmp) { m_positionWarpAmp = positionWarpAmp / 0.45f; }
 	void SetPositionWarpType(EPositionWarpType positionWarpType) { m_positionWarpType = positionWarpType; }
+	void SetPositionWarpFrequency(float positionWarpFrequency) { m_positionWarpFrequency = positionWarpFrequency; }
 
-	//2D
+	void SetFromParams(const FFNNoiseParams &Params)
+	{
+		SetSeed(Params.Seed);
+		SetInterp(Params.NoiseInterp);
+		SetNoiseType(Params.NoiseType);
+		SetFrequency(Params.NoiseFrequency);
+		SetFractalOctaves(Params.FractalOctaves);
+		SetFractalLacunarity(Params.FractalLacunarity);
+		SetFractalGain(Params.FractalGain);
+		SetFractalType(Params.NoiseFractalType);
+		SetPositionWarpAmp(Params.PositionWarpAmp);
+		SetPositionWarpType(Params.PositionWarpType);
+		SetPositionWarpFrequency(Params.PositionWarpFrequency);
+	}
+
+	//2D												
 	float GetValue(float x, float y);
 	float GetValueFractal(float x, float y);
 
@@ -459,6 +534,7 @@ protected:
 	UFastNoise* m_cellularNoiseLookup = nullptr;
 
 	float m_positionWarpAmp = 1.0f / 0.45f;
+	float m_positionWarpFrequency = 0.01f;
 
 	//2D
 	float SingleValueFractalFBM(float x, float y);
