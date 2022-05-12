@@ -37,7 +37,6 @@
 
 UENUM(BlueprintType)
 enum class ENoiseType : uint8
-{ 
 {
 	Value,
 	ValueFractal,
