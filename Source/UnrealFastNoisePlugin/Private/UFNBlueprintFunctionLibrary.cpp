@@ -10,7 +10,7 @@
 #include "UFNWarpModule.h"
 #include "UFNRadialModule.h"
 #include "UFNShoreFilterModule.h"
-#include "Engine/Classes/Components/SplineComponent.h"
+#include "Components/SplineComponent.h"
 
 UUFNBlueprintFunctionLibrary::UUFNBlueprintFunctionLibrary(const class FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)

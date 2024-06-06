@@ -30,7 +30,7 @@
 
 #pragma once
 
-#include "CoreUObject/Public/UObject/Object.h"
+#include "CoreUObject.h"
 #include "UFNNoiseGenerator.h"
 
 #include "FastNoise.generated.h"

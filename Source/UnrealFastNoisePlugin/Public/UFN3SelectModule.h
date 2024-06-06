@@ -1,7 +1,7 @@
 #pragma once
 
 #include "UnrealFastNoisePlugin/Public/UFNNoiseGenerator.h"
-
+#include "FastNoise/FastNoise.h"
 #include "UFN3SelectModule.generated.h"
 
 UCLASS()

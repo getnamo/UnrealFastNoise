@@ -1,6 +1,7 @@
 #pragma once
 
 #include "UnrealFastNoisePlugin/Public/UFNNoiseGenerator.h"
+#include "UnrealFastNoisePlugin.h"
 
 #include "UFNWarpModule.generated.h"
 
